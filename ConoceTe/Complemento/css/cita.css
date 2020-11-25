@@ -1,0 +1,77 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Merriweather');
+
+html, body {
+    font-family: "Merriweather";
+    width: 100%;
+    height: 100vh;
+    color: #41568F;
+}
+
+#page-wrapper {
+    padding: 0px;
+}
+
+.div-cita {
+    background-color: #70AEA5;
+    background-image: url(../image/fondos/fondo_crea_cita.jpg);
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.div-cita .div-cita-caja {
+    width: 100%;
+    text-align: center;
+}
+
+.div-cita .div-cita-caja .div-cita-contenido {
+    width: 100%;
+    max-width: 500px;
+    background: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.div-cita .div-cita-caja .div-cita-contenido .h1 {
+    font-size: 30px;
+}
+
+.div-cita .div-cita-caja .div-cita-contenido .h3 {
+    font-size: 15px;
+}
+
+.form-control {
+    display: inline-table;
+    float: left;
+    width: 100%;
+    margin-right: 0px;
+    text-align: center;
+}
+
+#citar {
+    width: 100%;
+}
+
+.btn {
+    background-color: #FCFEFE;
+    color: #253358;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #253358;
+    color: #FCFEFE;
+}
+
+.fa-calendar-plus, .fa-arrow-right {
+    margin: 0px 10px 0px 0px;
+}
+
+.fa-calendar-plus + .fa-calendar-plus, .fa-arrow-right + .fa-arrow-right {
+    margin: 0px 0px 0px 10px;
+}

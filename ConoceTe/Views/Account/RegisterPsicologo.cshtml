@@ -1,0 +1,123 @@
+﻿@model ConoceTe.WebApp.Models.Psicologo
+
+@{
+    Layout = null;
+    ViewData["Title"] = "RegisterProfesional";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - ConoceTe</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="@Url.Content("~/Complemento/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/css")
+    <!--Carga de Estilo Propio-->
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/register.css" />
+</head>
+<body>
+    <div class="registro">
+        <section class="conte-registro col-12">
+            <div class="container col-12">
+                <h1 class="h1 p-2 text-white font-bold">SELECCIONE EL TIPO DE SERVICIO</h1>
+                <div class="div-register accordion row" id="accordionExample">
+                    <div class="div-register-caja card col-md-12 col-lg-6 ">
+                        <div class="div-register-contenido">
+                            <div class="card-header" id="headingOne">
+                                <a class="in" type="button" href="~/Account/Register">
+                                    <div id="Paciente" class="panel-collapse collapse show" aria-labelledby="headingOne">
+                                        <img class="img-register" src="~/Complemento/image/imagenes/psicologo.jpg">
+                                        <h1 class="h1">PROFESIONAL</h1>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="Paciente" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="caja_registro_content card-body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-register-caja card col-md-12 col-lg-6">
+                        <div class="div-register-contenido">
+                            <div class="card-header show animated slideOutRight" id="headingTwo">
+                                <a class="in" type="button" href="#" data-toggle="collapse">
+                                    <img class="img-register" style="height:50px; width:50px;" src="~/Complemento/image/imagenes/paciente.jpg">
+                                </a>
+                            </div>
+                            <div id="Psicologo" class="collapse show animated zoomIn" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="caja_registro_content card-body">
+                                    @using (Html.BeginForm(new { @class = "form-detail", name = "RegistroUsuario" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <h2 class="h2">Ingrese sus datos</h2>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.Usuario.UsuarioNombre, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Nombres", id = "nombre", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioNombre, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.Usuario.UsuarioApellido, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Apellidos", id = "apellido", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioApellido, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.PsicologoDNI, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "DNI", maxlength = 8, minlength = 8 } })
+                                            @Html.ValidationMessageFor(model => model.PsicologoDNI, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.PsicologoEspecialidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Especialidad", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.PsicologoEspecialidad, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.PsicologoUniversidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Universidad", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.PsicologoUniversidad, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.Usuario.UsuarioEmail, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Correo Electrónico", id = "email", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                        <p class="hide text-danger" id="FailContra" manifest="FailContra"></p>
+                                        <div class="form-row">
+                                            @Html.EditorFor(model => model.Usuario.UsuarioContra, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Contraseña", id = "contra", onchange = "comprobarContrasenia()", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioContra, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" class="form-control input-text" id="confirmar_contra" onchange="comprobarContrasenia()" placeholder="Confirmar contraseña" maxlength=25 required />
+                                        </div>
+                                        <div class="form-row-last">
+                                            <input type="submit" name="Registrar" class="register" value="Registrar">
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="caja_ultimo_btn">
+                <a class="btn btn-primary btn-rounded btn-block pt-2 h1 ultimo_btn" href="~/Account/Login">
+                    <i class="class=" fa fa-address-card-o""></i> Tengo una cuenta. Login
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script src="~/Complemento/Scripts/secondContra.js"></script>
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+</body>
+</html>

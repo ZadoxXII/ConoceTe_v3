@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Principal";
+}
+<head>
+    <title>@ViewData["Title"] - ConoceTe</title>
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/index.css" />
+</head>
+
+<section class="Seccion_Encabezado">
+    <!--Encabezado Titulo-->
+    <div class="encabezado_titulo">
+        <div class="jumbotron">
+            <h1 class="display-4">Bienvenidos a ConoceTe</h1>
+            <h2 class="lead" style="font-size: 30px">El sitio web donde puedes apoyarte emocionalmente.</h2>
+            <hr class="my-4">
+            <p style="font-size: 30px">Puede ofrecer como recibir los servicios de psicología, como consegería, asistencia psicológica o ayuda emocional a través de esta plataforma. Incluso, se permite realizar charlas públicas como citas privadas.</p>
+            @Html.ActionLink("Mayor información", "About", "Home", null, new { @class= "btn btn-primary btn-lg btn-info h3" })
+        </div>
+    </div>
+</section>
+
+<!--Seccion de tipos de Servicios-->
+<section class="Tipo_Servicio py-2">
+    <div class="container">
+        <h1 class="h1"><b>Nuestro servicios</b></h1>
+        <div class="row">
+            <div class="col-lg-12 col-xl-6 h3">
+                <p class="h2"><b>USUARIO</b></p>
+                <img src="~/Complemento/image/iconos/Usuarios.png" class="icon_servicios">
+                <p><b>Registrate como usuario y accede a los servicios de consejeria, asistencia psicológica y ayuda emocional.</b></p>
+                <ul style="text-align: justify;">
+                    <li>Los datos de cuenta son privada.</li>
+                    <li>Puede realizar citas según su propia disponibilidad.</li>
+                    <li>Medio de pago seguro a través de Culqi.</li>
+                </ul>
+            </div>
+            <div class="col-lg-12 col-xl-6 h3">
+                <p class="h2"><b>PROFESIONAL</b></p>
+                <img src="~/Complemento/image/iconos/Psicologo.png" class="icon_servicios">
+                <p><b>Registrate como profesional y ofrece tus servicios como psicólogo.</b></p>
+                <ul style="text-align: justify;">
+                    <li>Brinda el servicio según tu propia especialidad.</li>
+                    <li>Sin pagos de mantenimiento o subcripción, solo por cita realizada.</li>
+                    <li>Baja comisión y deposito directo a tú cuenta de ahorros.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Tipos de terapias para ofrecer-->
+<section class="Seccion_Charlas">
+    <p class="h1">¿Qué tipos de Psicoterapia se atiende?</p>
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
+        </ol>
+        <div class="carousel-inner">
+            <a class="carousel-item active" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Familiar.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Psicoterapia familiar</h5>
+                </div>
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Ninio_Adol.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Psicoterapia en niños y adolescentes</h5>
+                </div>
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Pareja.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Psicoterapia de parejas</h5>
+                </div>
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Pro_Personalidad.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Problemas de personalidad</h5>
+                </div>
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Pro_Adiccion.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Problemas de adicción</h5>
+                </div>
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Complemento/image/imagenes/Terapia_Pro_Emocional.jpg" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="h5">Problemas emocionales y afectivos</h5>
+                </div>
+            </a>
+        </div>
+
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>

@@ -1,0 +1,69 @@
+﻿.gray-bg {
+    background-image: url(../image/fondos/fondo-cita.jpg);
+    background-size: cover;
+    font-family: 'Nunito', sans-serif;
+}
+
+#page-wrapper {
+    padding: 0px;
+}
+
+/*Cuerpo principal y caja de la lista de charlas o servicios*/
+.Lista_Charlas {
+    text-align: justify;
+    align-content: center;
+}
+
+.btn_IRaCREAR {
+    width: 500px;
+    font-size: 1.25rem;
+    background-color: #253358;
+    color: #FCFEFE;
+}
+.btn_IRaCREAR:hover {
+    width: 520px;
+    font-size: 1.27rem;
+    background-color: #4b67b4;
+    color: #FCFEFE;
+}
+
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    margin: 20px auto;
+    transition: all 0.5s ease;
+    display: inline-block;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+
+.card .row img {
+    height: 100%;
+}
+
+.card .row .col-sm-4, .card .row .col-xs-4 {
+    padding: 0px;
+}
+
+.Lista_Charlas .container .card, .Lista_Charlas .container .col-lg-5 {
+    min-width: 45%;
+    margin: 2%;
+}
+
+.Volver {
+    width: 200px;
+    font-size: 1.2rem;
+    transition: all 0.5s ease;
+}
+.Volver:hover {
+    width: 220px;
+    background-color: #1fabad;
+    font-size: 1.3rem;
+}

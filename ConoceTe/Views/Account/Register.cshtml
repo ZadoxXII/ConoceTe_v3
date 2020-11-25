@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - ConoceTe</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="@Url.Content("~/Complemento/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/css")
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/register.css" />
+</head>
+<body>
+    <div class="registro">
+        <section class="conte-registro col-12">
+            <div class="container col-12">
+                <h1 class="h1 p-2 text-white font-bold">SELECCIONE EL TIPO DE SERVICIO</h1>
+                <div class="div-register accordion row" id="accordionExample">
+                    <div class="div-register-caja card col-md-12 col-lg-6 animated slideInLeft">
+                        <div class="div-register-contenido">
+                            <div class="card-header" id="headingOne">
+                                <a class="in" type="button" href="~/Account/RegisterPsicologo">
+                                    <div id="Paciente" class="panel-collapse collapse show" aria-labelledby="headingOne">
+                                        <img class="img-register" src="~/Complemento/image/imagenes/psicologo.jpg">
+                                        <h1 class="h1">PROFESIONAL</h1>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="Paciente" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="caja_registro_content card-body">
+                                    <form class="form-detail" method="post">
+                                        <h2 class="h2">Ingrese sus datos</h2>
+                                        <div class="form-row">
+                                            <input type="text" name="nombre" id="nombre" class="input-text" placeholder="Nombres" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="apellido" id="apellido" class="input-text" placeholder="Apellidos" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="email" id="email" class="input-text" placeholder="Correo electrónico" maxlength=25>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" name="contra" id="contra" class="input-text" placeholder="Contraseña" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" name="comfirm-contra" id="comfirm-contra" class="input-text" maxlength=25 placeholder="Confirmar contraseña" required>
+                                        </div>
+                                        <div class="form-row-last">
+                                            <input type="submit" name="Registrar" class="register" value="Registrar">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-register-caja card col-md-12 col-lg-6 animated slideInRight">
+                        <div class="div-register-contenido">
+                            <div class="card-header" id="headingTwo">
+                                <a class="in" type="button" href="~/Account/RegisterPaciente">
+                                    <div id="Psicologo" class="panel-collapse collapse show" aria-labelledby="headingTwo">
+                                        <img class="img-register" src="~/Complemento/image/imagenes/paciente.jpg">
+                                        <h1 class="h1">USUARIO</h1>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="Psicologo" class="collapse in" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="caja_registro_content card-body">
+                                    <form class="form-detail" method="post">
+                                        <h2 class="h2">Ingrese sus datos</h2>
+                                        <div class="form-row">
+                                            <input type="text" name="nombre" id="nombre" class="input-text" placeholder="Nombres" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="apellido" id="apellido" class="input-text" placeholder="Apellidos" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="dni" id="dni" class="input-text" placeholder="DNI" minlength=8, maxlength=8 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="uni" id="uni" class="input-text" placeholder="Universidad" required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" name="especialidad" id="especialidad" class="input-text" placeholder="Especialidad" required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="email" name="email" id="email" class="input-text" placeholder="Correo Electrónico" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" name="contra" id="contra" class="input-text" placeholder="Contraseña" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" name="comfirm-contra" id="comfirm-contra" class="input-text" placeholder="Confirmar contraseña" maxlength=25 required>
+                                        </div>
+                                        <div class="form-row-last">
+                                            <input type="submit" name="Registrar" class="register" value="Registrar">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="caja_ultimo_btn">
+                <a class="btn btn-primary btn-rounded btn-block pt-2 h1 ultimo_btn" href="~/Account/Login">
+                    <i class="class=" fa fa-address-card-o""></i> Tengo una cuenta. Login
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+</body>
+</html>

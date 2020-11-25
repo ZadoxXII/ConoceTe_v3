@@ -1,0 +1,50 @@
+﻿@model ConoceTe.WebApp.Models.Cita
+
+@{
+    ViewData["Title"] = "CrearCita";
+}
+<head>
+    <title>@ViewData["Title"] - ConoceTe</title>
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/cita.css" important>
+</head>
+
+<div class="div-cita">
+    <div class="div-cita-caja">
+        <div class="div-cita-contenido animated rollIn">
+            <h1 class="h1">REGISTRA TU SERVICIO</h1>
+            @using (Html.BeginForm(new { htmlAttributes = new { @class = "form-detail" } }))
+            {
+                
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <label class="h3">Seleccione la fecha y hora</label>
+                @Html.EditorFor(model => model.CitaFecha, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.CitaFecha, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.CitaPrecio, new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "Costo por el servicio en soles", step = 0.20, min = 0.00, max = 999.00, maxlength = 3 } })
+                @Html.ValidationMessageFor(model => model.CitaPrecio, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <select class="form-control m-b" name="CitaTipo" id="CitaTipo" required>
+                        <option class="justify-content-center text-center align-content-center" value="" selected disabled>¿Qué tipo de cita?</option>
+                        <option value="Privada">Privada</option>
+                        <option value="Pública">Pública</option>
+                    </select>
+                    <span asp-validation-for="CitaTipo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group justify-content-center" id="btnCreaCita">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="far fa-calendar-plus"></i>
+                        CREAR
+                        <i class="far fa-calendar-plus"></i>
+                    </button>
+                </div>
+            }
+            <a href="@Url.Action("EnlistarMisCitas", "Cita")"><span>Por ahora, no. Volver <i class="fa fa-arrow-circle-left"></i></span></a>
+        </div>
+    </div>
+</div>
+
+<!--Carga de fuente font Awesome-->
+<script src="https://kit.fontawesome.com/53f26edbc1.js" crossorigin="anonymous"></script>

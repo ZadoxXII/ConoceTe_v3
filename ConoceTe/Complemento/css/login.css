@@ -1,0 +1,28 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Merriweather');
+
+html, body {
+    background-image: url(../image/fondos/fondo-principal.jpg);
+    background-size: cover;
+    font-family: "Merriweather";
+    font-size: 18px;
+}
+
+.img-lg {
+    height: 160px;
+    width: auto;
+}
+
+.loginscreen.middle-box {
+    width: 350px;
+}
+
+.form-control, .single-line {
+    display: inline-block;
+    width: 315px;
+}
+
+.img-login {
+    height: 30px;
+    margin-bottom: 5px;
+    display: inline;
+}

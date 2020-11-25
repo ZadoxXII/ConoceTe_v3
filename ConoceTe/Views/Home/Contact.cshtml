@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Contactanos";
+}
+<head>
+    <title>@ViewData["Title"] - ConoceTe</title>
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/contact.css" />
+</head>
+<section class="div-queja">
+    <div class="div-queja-caja">
+        <div class="container cambio_cont">
+            <div class="card-body animated flipInX">
+                <h3 class="text-center text-white font-weight-light mb-4"><b>ESTAMOS PARA ESCUCHARLO</b></h3>
+                <form action="/">
+                    <div class="form-group">
+                        <input type="text" placeholder="¿Algún Problema? ¿Algo qué nos falte?" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment" placeholder="Detalle el problema" name="comment" cols="40" rows="5" class="form-control"></textarea>
+                    </div>
+                    <input type="submit" value="Enviar" class="btn btn-danger btn-block mb-3">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

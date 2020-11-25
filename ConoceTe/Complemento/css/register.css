@@ -1,0 +1,202 @@
+﻿body{
+    background-image: url(../image/fondos/fondo_registrar.jpg);
+}
+.registro {
+    background-position: center center;
+    box-sizing: border-box;
+    height: 100vh;
+    background-size: cover;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: inline-table;
+}
+
+.registro .conte-registro {
+    height: 93.5vh;
+    display: inline-table;
+    padding: 50px 5%;
+    box-sizing: border-box;
+}
+
+/*SELECCION DE TIPO DE USUARIO*/
+.registro .conte-registro .div-register {
+    justify-content: center;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    font-family: Merriweather;
+    font-weight: bold;
+    color: #cce0e0;
+    text-align: center;
+}
+
+.registro .conte-registro .div-register .div-register-caja {
+    padding: 2rem 1.25rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    background: rgba(49, 49, 160, 0.6);
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .card-header {
+    padding: 0rem 1.25rem;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .card-header .h1 {
+    font-size: 2.5rem;
+    color: #cce0e0;
+}
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .img-register {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse {
+    padding: 30px 40px;
+    position: relative;
+    width: 100%;
+}
+
+.registro .conte-registro .div-register .div-register-caja .caja_registro_content {
+    background: #fff;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    color: #333;
+    position: relative;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .h2 {
+    color: #333;
+    font-size: 35px;
+    text-align: center;
+    position: relative;
+    padding: 6px 0 0;
+    margin-bottom: 47px;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .form-row {
+    width: 100%;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .form-detail .form-row-last {
+    text-align: center;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .input-text {
+    margin-bottom: 35px;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse input {
+    width: 92%;
+    padding: 0px 15px 10px 15px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid #e5e5e5;
+    -moz-appearance: unset;
+    -webkit-appearance: unset;
+    outline: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse input:focus {
+    border-bottom: 2px solid #fe892a;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .register {
+    background: #fe892a;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    width: 160px;
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+    border: none;
+    margin: 8px 0 auto 0px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .register:hover {
+    background: #e37b27;
+}
+
+.registro .conte-registro .div-register .div-register-caja .div-register-contenido .collapse .form-row-last input {
+    padding: 13px;
+}
+
+.registro .caja_ultimo_btn{
+    text-align: -webkit-center;
+}
+
+.registro .ultimo_btn{
+    font-size:x-large;
+    width: 40%;
+}
+
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #666;
+    font-size: 16px;
+}
+
+input::-moz-placeholder { /* Firefox 19+ */
+    color: #666;
+    font-size: 16px;
+}
+
+input:-ms-input-placeholder { /* IE 10+ */
+    color: #666;
+    font-size: 16px;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+    color: #666;
+    font-size: 16px;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 991px) {
+    .caja_registro_content {
+        margin: 180px 20px;
+        flex-direction: column;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+    }
+    
+    .caja_registro_content .form-detail {
+        padding: 30px 20px 30px 20px;
+        width: auto;
+    }
+    
+    .caja_registro_content .form-detail .form-row input {
+        width: 96%;
+    }
+
+    .caja_registro_content .form-detail .register {
+        margin-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .caja_registro_content .form-detail .form-row input {
+        width: 94%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .caja_registro_content .form-detail .form-row input {
+        width: 89%;
+    }
+}
