@@ -467,8 +467,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\RegisterPsicologo.cshtml" />
     <Content Include="Views\Account\RegisterPaciente.cshtml" />
-    <Content Include="Views\Cita\EnlistarMisCitas.cshtml" />
-    <Content Include="Views\Cita\CrearCita.cshtml" />
+    <Content Include="Views\Cita\EnlistarServicios.cshtml" />
+    <Content Include="Views\Cita\CrearServicio.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

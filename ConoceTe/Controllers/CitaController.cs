@@ -31,13 +31,13 @@ namespace ConoceTe.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Psicologo")]
-        public ActionResult CrearCita()
+        public ActionResult CrearServicio()
         {
             return View();
         }
         [HttpPost]
         //[Authorize(Roles = "Psicologo")]
-        public ActionResult CrearCita(Cita cita)
+        public ActionResult CrearServicio(Cita cita)
         {
             cita.CitaEstado = "Ci001"; //Estado inicial al crear, disponible para Paciente
 
@@ -56,7 +56,7 @@ namespace ConoceTe.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Psicologo")]
-        public ActionResult EnlistarMisCitas()
+        public ActionResult EnlistarServicios()
         {
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("Cita");

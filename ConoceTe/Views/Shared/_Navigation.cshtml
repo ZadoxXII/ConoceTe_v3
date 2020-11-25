@@ -18,11 +18,11 @@
             <li class="@Html.IsSelected(controller: "Home", action: "Index")">
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Inicio</span> <span class="label label-primary float-right">Inicio</span></a>
             </li>
-            <li class="@Html.IsSelected(controller: "Cita", action: "EnlistarMisCitas")">
-                <a href="@Url.Action("EnlistarMisCitas", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Citación</span></a>
+            <li class="@Html.IsSelected(controller: "Cita", action: "EnlistarServicios")">
+                <a href="@Url.Action("EnlistarServicios", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Mis Servicios</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Cita", action: "MostrarCitas")">
-                <a href="@Url.Action("MostrarCitas", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Citación</span></a>
+                <a href="@Url.Action("MostrarCitas", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Mis Citas</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "About")">
                 <a href="@Url.Action("About", "Home")"><i class="fa fa-info-circle"></i><span class="nav-label">Nosotros</span></a>
