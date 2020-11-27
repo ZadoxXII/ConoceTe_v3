@@ -1,8 +1,8 @@
-﻿@model ConoceTe.WebApp.Models.Psicologo
+﻿@model ConoceTe.WebApp.Models.Usuario
 
 @{
     Layout = null;
-    ViewData["Title"] = "RegisterProfesional";
+    ViewData["Title"] = "Register Profesional";
 }
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewData["Title"] - ConoceTe</title>
+    <title>ConoceTe | @ViewData["Title"]</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link href="@Url.Content("~/Complemento/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
@@ -60,33 +60,33 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.Usuario.UsuarioNombre, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Nombres", id = "nombre", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioNombre, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.UsuarioNombre, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Nombres", id = "nombre", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.UsuarioNombre, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.Usuario.UsuarioApellido, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Apellidos", id = "apellido", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioApellido, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.UsuarioApellido, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Apellidos", id = "apellido", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.UsuarioApellido, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.PsicologoDNI, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "DNI", maxlength = 8, minlength = 8 } })
-                                            @Html.ValidationMessageFor(model => model.PsicologoDNI, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Psicologo.PsicologoDNI, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "DNI", maxlength = 8, minlength = 8 } })
+                                            @Html.ValidationMessageFor(model => model.Psicologo.PsicologoDNI, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.PsicologoEspecialidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Especialidad", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.PsicologoEspecialidad, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Psicologo.PsicologoEspecialidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Especialidad", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Psicologo.PsicologoEspecialidad, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.PsicologoUniversidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Universidad", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.PsicologoUniversidad, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.Psicologo.PsicologoUniversidad, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Universidad", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.Psicologo.PsicologoUniversidad, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.Usuario.UsuarioEmail, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Correo Electrónico", id = "email", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioEmail, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.UsuarioEmail, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Correo Electrónico", id = "email", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.UsuarioEmail, "", new { @class = "text-danger" })
                                         </div>
                                         <p class="hide text-danger" id="FailContra" manifest="FailContra"></p>
                                         <div class="form-row">
-                                            @Html.EditorFor(model => model.Usuario.UsuarioContra, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Contraseña", id = "contra", onchange = "comprobarContrasenia()", maxlength = 25 } })
-                                            @Html.ValidationMessageFor(model => model.Usuario.UsuarioContra, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.UsuarioContra, new { htmlAttributes = new { @class = "form-control input-text", placeholder = "Contraseña", id = "contra", onchange = "comprobarContrasenia()", maxlength = 25 } })
+                                            @Html.ValidationMessageFor(model => model.UsuarioContra, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-row">
                                             <input type="password" class="form-control input-text" id="confirmar_contra" onchange="comprobarContrasenia()" placeholder="Confirmar contraseña" maxlength=25 required />

@@ -5,6 +5,8 @@ using FireSharp.Interfaces;
 using FireSharp.Response;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +50,11 @@ namespace ConoceTe.Controllers
                     var user = ab.User;
                     if (token != null)
                     {
-                        this.SignInUser(user.Email, token, false);
+                        this.SignInUser(user.Email, token, user.LocalId, false);
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        // Setting.
                         ModelState.AddModelError(string.Empty, "La contraseña o el usuario es incorrecto.");
                     }
                 }
@@ -66,19 +67,38 @@ namespace ConoceTe.Controllers
             ViewBag.ErrorLogin = "El correo electrónico o la contraseña son invalidos <i class='fa fa-grav' aria-hidden='true'></i>";
             return View();
         }
-        private void SignInUser(string email, string token, bool isPersistent)
+        private void SignInUser(string email, string token, string uid, bool isPersistent)
         {
             // Initialization.
             var claims = new List<Claim>();
 
             try
             {
+                client = new FireSharp.FirebaseClient(config);
+                var UsuarioJSON = client.Get("Usuario/" + uid);
+                Usuario usuario = UsuarioJSON.ResultAs<Usuario>();
+
                 // Setting
                 claims.Add(new Claim(ClaimTypes.Email, email));
+                claims.Add(new Claim(ClaimTypes.Name, usuario.UsuarioNombre + " " +usuario.UsuarioApellido));
                 claims.Add(new Claim(ClaimTypes.Authentication, token));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, uid));
+                switch (usuario.UsuarioRol)
+                {
+                    case "Administrador":
+                        claims.Add(new Claim(ClaimTypes.Role, "Administrador"));
+                        break;
+                    case "Psicologo":
+                        claims.Add(new Claim(ClaimTypes.Role, "Psicologo"));
+                        break;
+                    default:
+                        claims.Add(new Claim(ClaimTypes.Role, "Paciente"));
+                        break;
+                }
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 var ctx = Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;
+
                 // Registrar.
                 authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
             }
@@ -122,22 +142,22 @@ namespace ConoceTe.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> RegisterPsicologo(Psicologo psicologo)
+        public async Task<ActionResult> RegisterPsicologo(Usuario usuario)
         {
-            string NomYAPe = psicologo.Usuario.UsuarioNombre + " " + psicologo.Usuario.UsuarioApellido;
-            psicologo.Usuario.UsuarioRol = "Psicologo";
-            psicologo.Usuario.UsuarioEstado = "Ps00"; //Estado inaccesible. Necesita Ps01
+            string NomYAPe = usuario.UsuarioNombre + " " + usuario.UsuarioApellido;
+            usuario.UsuarioRol = "Psicologo";
+            usuario.UsuarioEstado = "Ps00"; //Estado inaccesible. Necesita Ps01
             try
             {
                 var auth = new FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(ApiKey));
                 //Crea Usuario Para autentificar al ingresar
-                var a = await auth.CreateUserWithEmailAndPasswordAsync(psicologo.Usuario.UsuarioEmail, psicologo.Usuario.UsuarioContra, NomYAPe, true);
+                var a = await auth.CreateUserWithEmailAndPasswordAsync(usuario.UsuarioEmail, usuario.UsuarioContra, NomYAPe, true);
                 //Extraer UID para ID en base de datos
-                psicologo.PsicologoID = a.User.LocalId;
+                usuario.UsuarioID = a.User.LocalId;
                 ModelState.AddModelError(string.Empty, "Excelente. Por favor, verifique su correo eletrónico.");
 
                 //Crea USUARIO Psicologo en la base de datos
-                AddPsicologoToFirebase(psicologo);
+                AddPsicologoToFirebase(usuario);
             }
             catch (Exception ex)
             {
@@ -145,12 +165,12 @@ namespace ConoceTe.Controllers
             }
             return View();
         }
-        private void AddPsicologoToFirebase(Psicologo psicologo)
+        private void AddPsicologoToFirebase(Usuario usuario)
         {
             client = new FireSharp.FirebaseClient(config);
-            var DatosPsicologo = psicologo;
-            DatosPsicologo.Usuario.UsuarioID = DatosPsicologo.PsicologoID;
-            SetResponse setResponse = client.Set("Usuario/" + DatosPsicologo.PsicologoID + "/Psicologo/", DatosPsicologo);
+            var DatosPsicologo = usuario;
+            DatosPsicologo.Psicologo.PsicologoID = DatosPsicologo.UsuarioID;
+            SetResponse setResponse = client.Set("Usuario/" + DatosPsicologo.UsuarioID, DatosPsicologo);
         }
 
         [HttpGet]
@@ -161,22 +181,22 @@ namespace ConoceTe.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> RegisterPaciente(Paciente paciente)
+        public async Task<ActionResult> RegisterPaciente(Usuario usuario)
         {
-            string NomYAPe = paciente.Usuario.UsuarioNombre + " " + paciente.Usuario.UsuarioApellido;
-            paciente.Usuario.UsuarioRol = "Paciente";
-            paciente.Usuario.UsuarioEstado = "Pa01";
+            string NomYAPe = usuario.UsuarioNombre + " " + usuario.UsuarioApellido;
+            usuario.UsuarioRol = "Paciente";
+            usuario.UsuarioEstado = "Pa01";
             try
             {
                 var auth = new FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(ApiKey));
                 //Crea Usuario Para autentificar al ingresar
-                var a = await auth.CreateUserWithEmailAndPasswordAsync(paciente.Usuario.UsuarioEmail, paciente.Usuario.UsuarioContra, NomYAPe, true);
+                var a = await auth.CreateUserWithEmailAndPasswordAsync(usuario.UsuarioEmail, usuario.UsuarioContra, NomYAPe, true);
                 //Extraer UID para ID en base de datos
-                paciente.PacienteID = a.User.LocalId;
+                usuario.UsuarioID = a.User.LocalId;
                 ModelState.AddModelError(string.Empty, "Excelente. Por favor, verifique su correo eletrónico.");
 
                 //Crea USUARIO Paciente en la base de datos
-                AddPacienteToFirebase(paciente);
+                AddPacienteToFirebase(usuario);
             }
             catch (Exception ex)
             {
@@ -184,12 +204,12 @@ namespace ConoceTe.Controllers
             }
             return View();
         }
-        private void AddPacienteToFirebase(Paciente paciente)
+        private void AddPacienteToFirebase(Usuario usuario)
         {
             client = new FireSharp.FirebaseClient(config);
-            var DatosPaciente = paciente;
-            DatosPaciente.Usuario.UsuarioID = DatosPaciente.PacienteID;
-            SetResponse setResponse = client.Set("Usuario/" + DatosPaciente.PacienteID + "/Paciente/", DatosPaciente);
+            var DatosPaciente = usuario;
+            DatosPaciente.Paciente.PacienteID = DatosPaciente.UsuarioID;
+            SetResponse setResponse = client.Set("Usuario/" + DatosPaciente.UsuarioID, DatosPaciente);
         }
 
         [HttpGet]

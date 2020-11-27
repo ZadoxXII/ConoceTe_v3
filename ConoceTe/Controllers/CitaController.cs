@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace ConoceTe.Controllers
 {
-    //[Authorize(Roles = "Psicologo, Paciente")]
+    [Authorize]
     public class CitaController : Controller
     {
         IFirebaseConfig config = new FireSharp.Config.FirebaseConfig
@@ -30,13 +30,13 @@ namespace ConoceTe.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Psicologo")]
+        [Authorize(Roles = "Psicologo")]
         public ActionResult CrearServicio()
         {
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Psicologo")]
+        [Authorize(Roles = "Psicologo")]
         public ActionResult CrearServicio(Cita cita)
         {
             cita.CitaEstado = "Ci001"; //Estado inicial al crear, disponible para Paciente
@@ -55,7 +55,7 @@ namespace ConoceTe.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Psicologo")]
+        [Authorize(Roles = "Psicologo")]
         public ActionResult EnlistarServicios()
         {
             client = new FireSharp.FirebaseClient(config);
@@ -70,7 +70,7 @@ namespace ConoceTe.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Paciente")]
+        [Authorize(Roles = "Paciente")]
         public ActionResult MostrarCitas()
         {
             var model = _psicologoRepositorio.ListandoPsicogos();
@@ -78,7 +78,7 @@ namespace ConoceTe.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Paciente")]
+        [Authorize(Roles = "Paciente")]
         public ActionResult SeleccionarCita(string id)
         {
             var Lista_model = _psicologoRepositorio.ListandoPsicogos();

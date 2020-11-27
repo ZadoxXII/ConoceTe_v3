@@ -307,7 +307,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Authorization.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Models\Cita.cs" />
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\Psicologo.cs" />

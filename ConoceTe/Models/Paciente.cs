@@ -9,6 +9,7 @@ namespace ConoceTe.WebApp.Models
     public class Paciente
     {
         public string PacienteID { get; set; }
+
         public DateTime FechaNaci { get; set; }
 
         public Usuario Usuario { get; set; }

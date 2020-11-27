@@ -24,6 +24,7 @@ namespace ConoceTe.WebApp.Models
         [DataType(DataType.EmailAddress)]
         public string UsuarioEmail { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(25, ErrorMessage = "El campo {0} tiene un máximo de {1} caracteres")]
         [DataType(DataType.Password)]
@@ -39,5 +40,9 @@ namespace ConoceTe.WebApp.Models
         public string UsuarioPhone { get; set; }
         public string UsuarioRol { get; set; }
         public string UsuarioEstado { get; set; }
+
+        public Psicologo Psicologo { get; set; }
+
+        public Paciente Paciente { get; set; }
     }
 }
