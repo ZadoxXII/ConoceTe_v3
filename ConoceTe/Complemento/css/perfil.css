@@ -1,0 +1,26 @@
+﻿.gray-bg {
+    padding: 0px;
+    background-image: url(../image/fondos/fondo_perfil.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.div_perfil {
+    width: 100%;
+    display: flex;
+}
+
+.ibox-title {
+    padding: 15px 15px;
+}
+
+.descripcion {
+    height: 130px;
+}
+.Nobox {
+    border-style: none;
+}
+
+.Nobox .ibox_data{
+    margin-right:30%;
+}

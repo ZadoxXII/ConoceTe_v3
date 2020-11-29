@@ -37,6 +37,7 @@ namespace ConoceTe.WebApp.Models
         [Compare("UsuarioContra", ErrorMessage = "Las contraseñas no concuerdan")]
         public string UContraConfirmar { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         public string UsuarioPhone { get; set; }
         public string UsuarioRol { get; set; }
         public string UsuarioEstado { get; set; }

@@ -171,6 +171,7 @@ namespace ConoceTe.Controllers
             var DatosPsicologo = usuario;
             DatosPsicologo.Psicologo.PsicologoID = DatosPsicologo.UsuarioID;
             SetResponse setResponse = client.Set("Usuario/" + DatosPsicologo.UsuarioID, DatosPsicologo);
+            SetResponse setResponse2 = client.Set("Psicologo/" + DatosPsicologo.UsuarioID + "/UsuarioID/", DatosPsicologo.UsuarioID);
         }
 
         [HttpGet]
@@ -210,6 +211,7 @@ namespace ConoceTe.Controllers
             var DatosPaciente = usuario;
             DatosPaciente.Paciente.PacienteID = DatosPaciente.UsuarioID;
             SetResponse setResponse = client.Set("Usuario/" + DatosPaciente.UsuarioID, DatosPaciente);
+            SetResponse setResponse2 = client.Set("Paciente/" + DatosPaciente.UsuarioID + "/UsuarioID/", DatosPaciente.UsuarioID);
         }
 
         [HttpGet]
@@ -220,16 +222,49 @@ namespace ConoceTe.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(string email)
         {
 
             return View();
         }
 
+
         [HttpGet]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult Perfil(string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            var UsuarioJSON = client.Get("Usuario/" + id);
+            Usuario usuario = UsuarioJSON.ResultAs<Usuario>();
+            return View(usuario);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult ActualizaDescripcion(string PsicologoDescripcion, string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            SetResponse response = client.Set("Usuario/" + id + "/Psicologo/PsicologoDescripcion/", PsicologoDescripcion);
+            return RedirectToAction("Perfil", "Account", new { id });
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult ActualizaPhone(string UsuarioPhone, string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            SetResponse response = client.Set("Usuario/" + id + "/UsuarioPhone/", UsuarioPhone);
+            return RedirectToAction("Perfil", "Account", new { id });
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult ActualizaCumple(DateTime FechaNaci, string id)
+        {
+            client = new FireSharp.FirebaseClient(config);
+            SetResponse response = client.Set("Usuario/" + id + "/Paciente/FechaNaci/", FechaNaci);
+            return RedirectToAction("Perfil", "Account", new { id });
+        }
+
+        [HttpGet]
+        [Authorize]
         public ActionResult LogOff()
         {
             var ctx = Request.GetOwinContext();

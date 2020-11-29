@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ConoceTe.WebApp.Models.Psicologo>
+﻿@model IEnumerable<ConoceTe.WebApp.Models.Usuario>
 
 @{
     ViewData["Title"] = "Mostrar citas";
@@ -11,27 +11,38 @@
 
 <section class="Lista_Charlas">
     <div class="container">
-        @foreach (var psicologo in Model)
+        @if (Model != null)
         {
-            <div class="card col-lg-5">
-                <div class="row animated bounceIn">
-                    <div class="col-sm-4 col-xs-4">
-                        <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
-                    </div>
-                    <div class="col-sm-8 col-xs-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center h4">@psicologo.Usuario.UsuarioNombre @psicologo.Usuario.UsuarioApellido</h5>
-                            <p class="card-text"><b>DESCRIPCION:</b> @psicologo.PsicologoDescripcion</p>
+            foreach (var psicologo in Model)
+            {
+                <div class="card col-lg-5">
+                    <div class="row animated bounceIn">
+                        <div class="col-sm-4 col-xs-4">
+                            <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Especializado en @psicologo.PsicologoEspecialidad</li>
-                            <li class="list-group-item">Estudió en @psicologo.PsicologoUniversidad</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="~/Cita/SeleccionarCita?id=@psicologo.PsicologoID" class="btn btn-outline-primary btn-lg btn-block">Ver horarios</a>
+                        <div class="col-sm-8 col-xs-4">
+                            <div class="card-body">
+                                <h5 class="card-title text-center h4">@psicologo.UsuarioNombre @psicologo.UsuarioApellido</h5>
+                                <p class="card-text h6"><b>DESCRIPCION:</b> @psicologo.Psicologo.PsicologoDescripcion</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item h6">Especializado en @psicologo.Psicologo.PsicologoEspecialidad</li>
+                                <li class="list-group-item h6">Estudió en @psicologo.Psicologo.PsicologoUniversidad</li>
+                            </ul>
+                            <div class="card-body h6">
+                                <form action="/Account/ActualizaDescripcion" method="post">
+                                    <a href="~/Cita/SeleccionarCita?id=@psicologo.UsuarioID" class="btn btn-outline-primary btn-lg btn-block">Ver horarios</a>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="h3 text-center">
+                <p>Esto es una gran lastima. Parece que aún no hay profesionales registrados.</p>
             </div>
         }
     </div>

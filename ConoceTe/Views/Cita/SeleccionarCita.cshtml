@@ -1,5 +1,5 @@
-﻿@model ConoceTe.WebApp.Models.Psicologo
-
+﻿@model IEnumerable<ConoceTe.WebApp.Models.Cita>
+@using ConoceTe.Helpers;
 @{
     ViewData["Title"] = "Seleccionar cita";
 }
@@ -13,28 +13,50 @@
 
 <section class="Lista_Charlas">
     <div class="container">
-        @foreach (var TodasCitas in Model.Citas)
+        @if (Model != null)
         {
-            <div class="card col-lg-5">
-                <div class="row animated bounceIn">
-                    <div class="col-sm-4 col-xs-4">
-                        <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
+            foreach (var TodasCitas in Model)
+            {
+        <div class="card col-lg-5">
+            @if (TodasCitas.CitaEstado == "Ci002")
+            {
+                ViewBag.EstiloCartilla = "row animated bounceIn bg-dark";
+                ViewBag.Button = "btn btn-outline-primary btn-lg btn-block disabled";
+                ViewBag.TextoButton = "OCUPADO";
+            }
+            else
+            {
+                ViewBag.EstiloCartilla = "row animated bounceIn";
+                ViewBag.Button = "btn btn-outline-primary btn-lg btn-block";
+                ViewBag.TextoButton = "Solicitar una Cita";
+            }
+
+            <div class="@ViewBag.EstiloCartilla">
+                <div class="col-sm-4 col-xs-4">
+                    <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
+                </div>
+                <div class="col-sm-8 col-xs-4">
+                    <div class="card-body">
+                        <h5 class="card-title text-center h4">@TodasCitas.Psicologo.Usuario.UsuarioNombre @TodasCitas.Psicologo.Usuario.UsuarioApellido</h5>
+                        <p class="card-text h6"><b>Fecha disponible:</b> @TodasCitas.CitaFecha.ToString("dd/MMM/yyyy")</p>
+                        <p class="card-text h6"><b>Hora:</b> @TodasCitas.CitaFecha.ToString("hh:mm tt")</p>
                     </div>
-                    <div class="col-sm-8 col-xs-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center h4">@Model.Usuario.UsuarioNombre @Model.Usuario.UsuarioApellido</h5>
-                            <p class="card-text"><b>Fecha disponible:</b> (@TodasCitas.CitaFecha).ToString("dd/MMM/yyyy")</p>
-                            <p class="card-text"><b>Hora:</b> (@TodasCitas.CitaFecha).ToString("hh:mm tt")</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Precio:</b> s./@TodasCitas.CitaPrecio</li>
-                            <li class="list-group-item text-center">@TodasCitas.CitaTipo</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-outline-primary btn-lg btn-block">Solicitar una Cita</a>
-                        </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item h6"><b>Precio:</b> s./@TodasCitas.CitaPrecio</li>
+                        <li class="list-group-item text-center h6">@TodasCitas.CitaTipo</li>
+                    </ul>
+                    <div class="card-body h6">
+                        <a href="@Url.Action("SolicitarCita", "Cita", new { CitaID = TodasCitas.CitaID, PacienteID = SessionHelper.GetNameIdentifier(User)})" class="@ViewBag.Button" role="button">@ViewBag.TextoButton</a>
                     </div>
                 </div>
+            </div>
+        </div>
+            }
+        }
+        else
+        {
+            <div class="h3 text-center">
+                <p>Lo sentimos. Este usuario aún no ha registrado algun servicio.</p>
             </div>
         }
     </div>

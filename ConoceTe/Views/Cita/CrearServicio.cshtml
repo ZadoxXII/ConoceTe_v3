@@ -1,5 +1,5 @@
 ﻿@model ConoceTe.WebApp.Models.Cita
-
+@using ConoceTe.Helpers;
 @{
     ViewData["Title"] = "Crear Servicio";
 }
@@ -15,15 +15,16 @@
             <h1 class="h1">REGISTRA TU SERVICIO</h1>
             @using (Html.BeginForm(new { htmlAttributes = new { @class = "form-detail" } }))
             {
-                
+                <p class="mb-0">Recuerda que los usuarios veen la descripción. Agregalo en <a href=@Url.Action("Perfil", "Account", new { id = @SessionHelper.GetNameIdentifier(User) })>perfil <i class="far fa-address-book"></i></a></p>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <label class="h3">Seleccione la fecha y hora</label>
                 @Html.EditorFor(model => model.CitaFecha, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
                 @Html.ValidationMessageFor(model => model.CitaFecha, "", new { @class = "text-danger" })
 
-                @Html.EditorFor(model => model.CitaPrecio, new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "Costo por el servicio en soles", step = 0.20, min = 0.00, max = 999.00, maxlength = 3 } })
+                @Html.EditorFor(model => model.CitaPrecio, new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "Costo por el servicio en soles", step = 0.40, min = 0.00, max = 999.00, maxlength = 3 } })
                 @Html.ValidationMessageFor(model => model.CitaPrecio, "", new { @class = "text-danger" })
 
+                <input type="text" class="form-control m-b d-none" name="Psicologo.PsicologoID" id="Psicologo.PsicologoID" value="@SessionHelper.GetNameIdentifier(User)" required />
                 <div class="form-group">
                     <select class="form-control m-b" name="CitaTipo" id="CitaTipo" required>
                         <option class="justify-content-center text-center align-content-center" value="" selected disabled>¿Qué tipo de cita?</option>
@@ -41,7 +42,7 @@
                     </button>
                 </div>
             }
-            <a href="@Url.Action("EnlistarMisCitas", "Cita")"><span>Por ahora, no. Volver <i class="fa fa-arrow-circle-left"></i></span></a>
+            <a href="@Url.Action("EnlistarServicios", "Cita", new { id = SessionHelper.GetNameIdentifier(User)})"><span>Por ahora, no. Volver <i class="fa fa-arrow-circle-left"></i></span></a>
         </div>
     </div>
 </div>

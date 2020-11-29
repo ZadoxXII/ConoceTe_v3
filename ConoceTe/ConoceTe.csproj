@@ -301,13 +301,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DBBorrableFolder\CitaRepositorio.cs" />
-    <Compile Include="DBBorrableFolder\PsicologoRepositorio.cs" />
-    <Compile Include="DBBorrableFolder\UsuarioRepositorio.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Authorization.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Models\Cita.cs" />
@@ -348,6 +344,7 @@
     <Content Include="Complemento\css\patterns\otis_redding.png" />
     <Content Include="Complemento\css\patterns\shattered.png" />
     <Content Include="Complemento\css\patterns\triangular.png" />
+    <Content Include="Complemento\css\perfil.css" />
     <Content Include="Complemento\css\register.css" />
     <Content Include="Complemento\css\style.css" />
     <Content Include="Complemento\fonts\font-awesome\css\font-awesome.css" />
@@ -359,6 +356,7 @@
     <Content Include="Complemento\image\fondos\fondo-queja.jpg" />
     <Content Include="Complemento\image\fondos\fondo_crea_cita.jpg" />
     <Content Include="Complemento\image\fondos\fondo_forgot.jpg" />
+    <Content Include="Complemento\image\fondos\fondo_perfil.jpg" />
     <Content Include="Complemento\image\fondos\fondo_registrar.jpg" />
     <Content Include="Complemento\image\iconos\Agregar.png" />
     <Content Include="Complemento\image\iconos\Contrasenia.png" />
@@ -374,7 +372,6 @@
     <Content Include="Complemento\image\imagenes\Terapia_Pro_Adiccion.jpg" />
     <Content Include="Complemento\image\imagenes\Terapia_Pro_Emocional.jpg" />
     <Content Include="Complemento\image\imagenes\Terapia_Pro_Personalidad.jpg" />
-    <Content Include="Complemento\Scripts\accesoFuncionRol.js" />
     <Content Include="Complemento\Scripts\app\inspinia.js" />
     <Content Include="Complemento\Scripts\app\skin.config.min.js" />
     <Content Include="Complemento\Scripts\bootstrap.js" />
@@ -463,7 +460,6 @@
     <Content Include="Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Views\Home\Information.cshtml" />
     <Content Include="Views\Cita\MostrarCitas.cshtml" />
-    <Content Include="Views\Cita\SeleccionarCita.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -471,6 +467,8 @@
     <Content Include="Views\Account\RegisterPaciente.cshtml" />
     <Content Include="Views\Cita\EnlistarServicios.cshtml" />
     <Content Include="Views\Cita\CrearServicio.cshtml" />
+    <Content Include="Views\Account\Perfil.cshtml" />
+    <Content Include="Views\Cita\SeleccionarCita.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

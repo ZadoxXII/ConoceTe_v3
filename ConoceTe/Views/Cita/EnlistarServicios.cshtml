@@ -1,45 +1,67 @@
 ﻿@model IEnumerable<ConoceTe.WebApp.Models.Cita>
-
+@using ConoceTe.Helpers;
 @{
     ViewBag.Title = "Enlistar mis Servicios";
+    bool EsVacio = !Model.Any();
+
+    DateTime Ahora = DateTime.Today;
 }
 
 <head>
-    <title>ConoceTe | @ViewData["Title"]</title>
+    <title>ConoceTe | @ViewBag.Title</title>
     <!--Carga de Estilo Propio-->
     <link rel="stylesheet" href="~/Complemento/css/listaCitas.css">
 </head>
 
-<a href="~/Cita/MostrarCitas">VER VISTA PACIENTE</a><!--ENLACE DE PRUEBA, SE DEBE BORRAR-->
 <section class="Lista_Charlas">
     <div class="text-center mt-4">
-        <a href="~/Cita/CrearCita" class="btn btn-primary btn_IRaCREAR">REGISTRA TUS SERVICIOS CREANDO CITA</a>
+        <a href="~/Cita/CrearServicio" class="btn btn-primary btn_IRaCREAR">REGISTRA TUS SERVICIOS CREANDO CITA</a>
     </div>
     <div class="container">
-        @foreach (var cita in Model)
+        @if (EsVacio)
         {
-            <div class="card col-lg-5">
-                <div class="row animated bounceIn">
-                    <div class="col-sm-4 col-xs-4">
-                        <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
-                    </div>
-                    <div class="col-sm-8 col-xs-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center h4">AA BB</h5>
-                            <p class="card-text"><b>Fecha disponible:</b> @cita.CitaFecha.ToString("dd/MMM/yyyy")</p>
-                            <p class="card-text"><b>Hora:</b> @cita.CitaFecha.ToString("hh:mm tt")</p>
+            <div class="h3 text-center">
+                <p>Aún no has registrado algun servicio. Pulsa <b>↑ Crear Servicio ↑</b> para que los usuarios puedan ver qué dias estas disponible.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var cita in Model)
+            {
+                if (cita.CitaEstado == "Ci002")
+                {
+                    ViewBag.EstiloCartilla = "row animated bounceIn bg-primary";
+                    ViewBag.TextoButton = "CANCELAR CITA";
+                }
+                else
+                {
+                    if (cita.CitaEstado == "Ci000") { ViewBag.EstiloCartilla = "row animated bounceIn bg-danger"; }
+                    else { ViewBag.EstiloCartilla = "row animated bounceIn"; }
+                    ViewBag.TextoButton = "Eliminar";
+                }
+                <div class="card col-lg-5">
+                    <div class="@ViewBag.EstiloCartilla">
+                        <div class="col-sm-4 col-xs-4">
+                            <img class="d-block w-100" src="https://secure.gravatar.com/avatar/baa004ce83acc7623f58cb90401e8eb0?s=1024&d=mm&r=g" alt="">
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Precio:</b> s./@Html.DisplayFor(modelItem => cita.CitaPrecio)</li>
-                            <li class="list-group-item text-center">@Html.DisplayFor(modelItem => cita.CitaTipo)</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-outline-primary btn-lg btn-block">Modificar</a>
-                            <a href="#" class="btn btn-outline-danger btn-lg btn-block">Eliminar</a>
+                        <div class="col-sm-8 col-xs-4">
+                            <div class="card-body">
+                                <h5 class="card-title text-center h4">@SessionHelper.GetName(User)</h5>
+                                <p class="card-text h6"><b>Fecha disponible:</b> @cita.CitaFecha.ToString("dd/MMM/yyyy")</p>
+                                <p class="card-text h6"><b>Hora:</b> @cita.CitaFecha.ToString("hh:mm tt")</p>
+                            </div>
+                            <ul class="list-group list-group-flush h6">
+                                <li class="list-group-item"><b>Precio:</b> s./@Html.DisplayFor(modelItem => cita.CitaPrecio)</li>
+                                <li class="list-group-item text-center">@Html.DisplayFor(modelItem => cita.CitaTipo)</li>
+                            </ul>
+                            <div class="card-body h6">
+                                <a href="#" class="btn btn-outline-primary btn-lg btn-block">Modificar</a>
+                                <a href="@Url.Action("EliminaCita", "Cita", new { CitaID = cita.CitaID, PsicologoID = SessionHelper.GetNameIdentifier(User)})" class="btn btn-outline-danger btn-lg btn-block">@ViewBag.TextoButton</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
     <div class="block text-center">
