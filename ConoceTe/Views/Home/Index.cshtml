@@ -7,6 +7,26 @@
     <!--Carga de Estilo Propio-->
     <link rel="stylesheet" href="~/Complemento/css/index.css" />
 </head>
+@if (SessionHelper.GetEstado(User) == "Ps00")
+{
+    <div class="modal fade show" id="MensajeIni" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block; padding-right: 17px;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="exampleModalLabel">Bienvenido Fray Ignacio Olmo Paredes a ConoceTe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="CerrarModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body h5 text-justify">
+                    Se le da la bienvenida a la plataforma ConoceTe. 
+                    Todavia no puedes ofrecer tus servicios hasta el momento que se te valide tu ingreso.  
+                    Se le recomienda esperar mientras eso sucede. Gracias por su comprensión y buen dia.
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <section class="Seccion_Encabezado">
     <!--Encabezado Titulo-->
@@ -110,3 +130,14 @@
         </a>
     </div>
 </section>
+
+<script>
+    function CerrarModal() {
+        var x = document.getElementById("MensajeIni");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

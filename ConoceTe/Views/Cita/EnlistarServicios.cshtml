@@ -14,9 +14,12 @@
 </head>
 
 <section class="Lista_Charlas">
-    <div class="text-center mt-4">
-        <a href="~/Cita/CrearServicio" class="btn btn-primary btn_IRaCREAR">REGISTRA TUS SERVICIOS CREANDO CITA</a>
-    </div>
+    @if (SessionHelper.GetEstado(User) != "Ps00")
+    {
+        <div class="text-center mt-4">
+            <a href="~/Cita/CrearServicio" class="btn btn-primary btn_IRaCREAR">REGISTRA TUS SERVICIOS CREANDO CITA</a>
+        </div>
+    }
     <div class="container">
         @if (EsVacio)
         {

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ConoceTe.WebApp.Models.Usuario>
+
+@{
+    ViewBag.Title = "Solicitud de Acceso";
+}
+
+<h2>Peticiones de ingreso de Psicologos entrantes</h2>
+
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo Electrónico</th>
+            <th>DNI</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+        @foreach (var psciologo in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => psciologo.UsuarioNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => psciologo.UsuarioApellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => psciologo.UsuarioEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => psciologo.Psicologo.PsicologoDNI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => psciologo.UsuarioEstado)
+                </td>
+                <td>
+                    <a class="btn btn-success" href=@Url.Action("Aceptar", "Admin", new { id = psciologo.UsuarioID }) role="button">Aceptar</a>
+                    <a class="btn btn-info" href="https://enlinea.sunedu.gob.pe/verificainscripcion" target="_blank">Verificar</a>
+                    <a class="btn btn-danger" href=@Url.Action("Eliminar", "Admin", new { id = psciologo.UsuarioID }) role="button">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="h3 text-center">
+        <p>Parece que no hay solicitudes de acceso pendientes.</p>
+    </div>
+}

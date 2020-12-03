@@ -299,6 +299,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartUp.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -469,6 +470,10 @@
     <Content Include="Views\Cita\CrearServicio.cshtml" />
     <Content Include="Views\Account\Perfil.cshtml" />
     <Content Include="Views\Cita\SeleccionarCita.cshtml" />
+    <Content Include="Views\Home\Question.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_PanelAdmin.cshtml" />
+    <Content Include="Views\Admin\AccesoPsicologo.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

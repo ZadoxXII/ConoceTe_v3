@@ -12,6 +12,10 @@ namespace ConoceTe.Controllers
     {
         public ActionResult Index()
         {
+            if (User.IsInRole("Administrador"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             return View();
         }
 
@@ -31,6 +35,11 @@ namespace ConoceTe.Controllers
 
         [HttpGet]
         public ActionResult Information()
+        {
+            return View();
+        }
+
+        public ActionResult Question()
         {
             return View();
         }

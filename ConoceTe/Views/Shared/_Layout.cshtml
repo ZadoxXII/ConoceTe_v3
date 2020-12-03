@@ -31,22 +31,38 @@
     <div id="wrapper" class="@Html.PageClass()">
 
         <!-- Navigation -->
-        @Html.Partial("_Navigation")
+        @if (SessionHelper.GetRol(User) != "Administrador")
+        {
+            @Html.Partial("_Navigation")
 
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+            <!-- Page wraper -->
+            <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
-            <!-- Top Navbar -->
-            @Html.Partial("_TopNavbar")
+                <!-- Top Navbar -->
+                @Html.Partial("_TopNavbar")
 
-            <!-- Main view  -->
-            @RenderBody()
+                <!-- Main view  -->
+                @RenderBody()
 
-            <!-- Footer -->
-            @Html.Partial("_Footer")
+                <!-- Footer -->
+                @Html.Partial("_Footer")
 
-        </div>
-        <!-- End page wrapper-->
+            </div>
+            <!-- End page wrapper-->
+        }
+        else
+        {
+            @Html.Partial("_PanelAdmin")
+
+            <!-- Page wraper -->
+            <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+                <!-- Main view  -->
+                @RenderBody()
+
+                <!-- Footer -->
+                @Html.Partial("_Footer")
+            </div>
+        }
 
 
     </div>

@@ -33,5 +33,11 @@ namespace ConoceTe.Helpers
             var x = ((ClaimsIdentity)Usuario.Identity).FindFirst(ClaimTypes.Role);
             return x == null ? "" : x.Value;
         }
+
+        public static string GetEstado(IPrincipal Usuario)
+        {
+            var x = ((ClaimsIdentity)Usuario.Identity).FindFirst("Estado");
+            return x == null ? "" : x.Value;
+        }
     }
 }

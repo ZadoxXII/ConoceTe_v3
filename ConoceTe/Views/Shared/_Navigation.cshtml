@@ -6,7 +6,14 @@
                 <div class="dropdown profile-element">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="block m-t-xs font-bold">@SessionHelper.GetName(User)</span>
-                        <span class="text-muted text-xs block"> @if(@SessionHelper.GetRol(User)=="Psicologo"){ <span>Profesional</span>; }else{ <span>Usuario</span>; }<b class="caret"></b></span>
+                        <span class="text-muted text-xs block">
+                            @if (@SessionHelper.GetRol(User) == "Psicologo")
+                            {<span>Profesional</span>;
+                            }
+                            else
+                            { <span>Usuario</span>;
+                            }<b class="caret"></b>
+                        </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs" style="position: absolute; top: 91px; left: 0px; will-change: top, left;">
                         <li><a class="dropdown-item" href="~/Account/Perfil?id=@SessionHelper.GetNameIdentifier(User)"> Perfil </a></li>
@@ -20,41 +27,57 @@
             <li class="@Html.IsSelected(controller: "Home", action: "Index")">
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Inicio</span> <span class="label label-primary float-right">Inicio</span></a>
             </li>
-            <li class="@Html.IsSelected(controller: "Cita", action: "EnlistarServicios")">
-                <a href="@Url.Action("EnlistarServicios", "Cita", new { id = SessionHelper.GetNameIdentifier(User) })"><i class="fa fa-heart"></i><span class="nav-label">Mis Servicios</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Cita", action: "MostrarCitas")">
-                <a href="@Url.Action("MostrarCitas", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Mis Citas</span></a>
-            </li>
+            @if (User.IsInRole("Psicologo"))
+            {
+                <li class="@Html.IsSelected(controller: "Cita", action: "EnlistarServicios")">
+                    <a href="@Url.Action("EnlistarServicios", "Cita", new { id = SessionHelper.GetNameIdentifier(User) })"><i class="fa fa-heart"></i><span class="nav-label">Mis Servicios</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="@Html.IsSelected(controller: "Cita", action: "MostrarCitas")">
+                    <a href="@Url.Action("MostrarCitas", "Cita")"><i class="fa fa-heart"></i><span class="nav-label">Mis Citas</span></a>
+                </li>
+            }
+
             <li class="@Html.IsSelected(controller: "Home", action: "About")">
                 <a href="@Url.Action("About", "Home")"><i class="fa fa-info-circle"></i><span class="nav-label">Nosotros</span></a>
             </li>
             <li class="@Html.IsSelected(controller: "Home", action: "Contact")">
                 <a href="@Url.Action("Contact", "Home")"><i class="fa fa-comments-o"></i><span class="nav-label">Contactanos</span></a>
             </li>
-            <li>
-                <a href="#" aria-expanded="false"><i class="fa fa-medkit"></i><span class="nav-label">Psicoterapias</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                    <li>
-                        <a href="~/Home/Information/Tera=Fa" aria-expanded="false">Psicoterapia familiar</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/Information/Tera=NA" aria-expanded="false">Psicoterapia en niños y adolescentes</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/Information/Tera=Pa" aria-expanded="false">Psicoterapia de parejas</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/Information/Tera=Pe" aria-expanded="false">Problemas de personalidad</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/Information/Tera=Ad" aria-expanded="false">Problemas de adicción</a>
-                    </li>
-                    <li>
-                        <a href="~/Home/Information/Tera=EA" aria-expanded="false">Problemas emocionales y afectivos</a>
-                    </li>
-                </ul>
-            </li>
+            @if (User.IsInRole("Psicologo"))
+            {
+                <li class="@Html.IsSelected(controller: "Home", action: "Question")">
+                    <a href="@Url.Action("Question", "Home")"><i class="fa fa-question-circle"></i><span class="nav-label">¿Preguntas?</span></a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" aria-expanded="false"><i class="fa fa-medkit"></i><span class="nav-label">Psicoterapias</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                        <li>
+                            <a href="~/Home/Information/Tera=Fa" aria-expanded="false">Psicoterapia familiar</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Information/Tera=NA" aria-expanded="false">Psicoterapia en niños y adolescentes</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Information/Tera=Pa" aria-expanded="false">Psicoterapia de parejas</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Information/Tera=Pe" aria-expanded="false">Problemas de personalidad</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Information/Tera=Ad" aria-expanded="false">Problemas de adicción</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/Information/Tera=EA" aria-expanded="false">Problemas emocionales y afectivos</a>
+                        </li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
 </nav>

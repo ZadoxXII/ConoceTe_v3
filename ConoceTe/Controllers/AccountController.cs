@@ -81,6 +81,7 @@ namespace ConoceTe.Controllers
                 // Setting
                 claims.Add(new Claim(ClaimTypes.Email, email));
                 claims.Add(new Claim(ClaimTypes.Name, usuario.UsuarioNombre + " " +usuario.UsuarioApellido));
+                claims.Add(new Claim("Estado", usuario.UsuarioEstado));
                 claims.Add(new Claim(ClaimTypes.Authentication, token));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, uid));
                 switch (usuario.UsuarioRol)
@@ -101,24 +102,6 @@ namespace ConoceTe.Controllers
 
                 // Registrar.
                 authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
-            }
-            catch (Exception ex)
-            {
-                // Info
-                throw ex;
-            }
-        }
-
-        private void ClaimIdentities(string username, bool isPersistent)
-        {
-            // Initialization.
-            var claims = new List<Claim>();
-            try
-            {
-                // Setting
-                claims.Add(new Claim(ClaimTypes.Name, username));
-                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-
             }
             catch (Exception ex)
             {
