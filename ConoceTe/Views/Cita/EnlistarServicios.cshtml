@@ -59,7 +59,7 @@
                             </ul>
                             <div class="card-body h6">
                                 <a href="#" class="btn btn-outline-primary btn-lg btn-block">Modificar</a>
-                                <a href="@Url.Action("EliminaCita", "Cita", new { CitaID = cita.CitaID, PsicologoID = SessionHelper.GetNameIdentifier(User)})" class="btn btn-outline-danger btn-lg btn-block">@ViewBag.TextoButton</a>
+                                <a href="@Url.Action("EliminarServicio", "Cita", new { CitaID = cita.CitaID, PsicologoID = SessionHelper.GetNameIdentifier(User)})" class="btn btn-outline-danger btn-lg btn-block">@ViewBag.TextoButton</a>
                             </div>
                         </div>
                     </div>
