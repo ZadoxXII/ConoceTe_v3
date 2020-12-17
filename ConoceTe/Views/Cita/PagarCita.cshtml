@@ -1,0 +1,96 @@
+﻿@model ConoceTe.Models.Tarjeta
+
+@{
+    Layout = null;
+    ViewBag.Title = "Pago";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConoceTe | @ViewData["Title"]</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="shortcut icon" href="~/Complemento/image/iconos/Logo.png" />
+    <link href="@Url.Content("~/Complemento/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/css")
+
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/pagarCita.css" />
+</head>
+<body>
+    <div class="container m-5 mx-auto">
+        <div class="row main">
+            <div class="col-lg-3 bg-none">
+            </div>
+            <div class="col-lg-6 col-12 my-5 pt-5 scol centroForm">
+                <div class="row r1">
+                    <h6 class="text-muted h5">Monto a pagar:</h6>
+                    <h4 class="text-danger h5">s/. @ViewBag.CitaPrecio</h4>
+                </div>
+                <div class="row r2 mb-0">
+                    <h4>Servicio de Cita</h4>
+                    <h4 class="htwo">X1</h4>
+                </div>
+                <div class="row r3 mt-0 p-0 justify-content-center">
+                    <h2 class="payment">ConoceTe</h2>
+                </div>
+                <div class="row r3 justify-content-center">
+                    <img class="w-25" src="~/Complemento/image/iconos/Logo.png" />
+                </div>
+                <div class="row r4 mt-2 textoSelecto">
+                    <h2 class="textoSelecto">Puedes pagar con cualquiera de estas cuentas:</h2>
+                </div>
+                <div class="row r5 text-center">
+                    <div class="col-2"></div>
+                    <div class="col-2"><img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" /></div>
+                    <div class="col-2"><img src="https://img.icons8.com/color/48/000000/visa.png" /></div>
+                    <div class="col-2"><img src="https://img.icons8.com/color/48/000000/amex.png" /></div>
+                    <div class="col-2"><img src="https://img.icons8.com/color/48/000000/paypal.png" /></div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row r6">
+                    @using (Html.BeginForm(new { @class = "personalDetails" }))
+                    {
+                        <div class="form-group text-center">
+                            @Html.EditorFor(model => model.CN, new { htmlAttributes = new { @class = "form-control text-center", placeholder = "Número de tarjeta", type = "text", maxlength = 16, minlength = 16 } })
+                            @Html.ValidationMessageFor(model => model.CN, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-4">
+                                    @Html.EditorFor(model => model.NM, new { htmlAttributes = new { @class = "form-control col-5 th Date", placeholder = "MM", max = 12, min = 1, maxlength = 2, minlength = 2 } })
+                                    /@Html.EditorFor(model => model.NY, new { htmlAttributes = new { @class = "form-control col-5 th Date", placeholder = "YY", maxlength = 2, minlength = 2 } })
+                                </div>
+                                <div class="col-4 offset-2">
+                                    @Html.EditorFor(model => model.CV, new { htmlAttributes = new { @class = "form-control", placeholder = "CCV", type = "password", maxlength = 3, minlength = 3 } })
+                                    @Html.ValidationMessageFor(model => model.CV, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-2 th"><i class="fa fa-credit-card"></i></div>
+                            </div>
+                        </div>
+
+                        <input type="number" class="form-control m-b d-none" name="MT" id="MT" value="@ViewBag.CitaPrecio" required />
+
+                        <div class="form-group text-center">
+                            <div class="col-md-offset-2 col-md-12 h6">
+                                <input type="submit" value="Pagar s/. @ViewBag.CitaPrecio" class="btn btn-primary mt-3" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3 bg-none">
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

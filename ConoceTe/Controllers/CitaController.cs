@@ -9,8 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using culqi.net;
 using ConoceTe.Models;
+using SecurionPay;
+using SecurionPay.Request;
+using SecurionPay.Response;
+using SecurionPay.Exception;
+using SecurionPay.Enums;
+using System.Threading.Tasks;
 
 namespace ConoceTe.Controllers
 {
@@ -35,7 +40,7 @@ namespace ConoceTe.Controllers
         public ActionResult CrearServicio(Cita cita)
         {
             string Estado = VerificarEstado(cita.Psicologo.PsicologoID);
-            if(Estado != "Ps00")
+            if (Estado != "Ps00")
             {
                 cita.CitaEstado = "Ci001"; //Estado inicial al crear, disponible para Paciente
 
@@ -66,8 +71,9 @@ namespace ConoceTe.Controllers
         }
 
         [Authorize(Roles = "Psicologo")]
-        public ActionResult EnlistarServicios(string id)
+        public ActionResult EnlistarServicios()
         {
+            string id = SessionHelper.GetNameIdentifier(User);
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("Cita/");
             dynamic DatosCita = JsonConvert.DeserializeObject<dynamic>(response.Body);
@@ -82,11 +88,7 @@ namespace ConoceTe.Controllers
 
                 foreach (var a in ListaCitasTotal)
                 {
-                    if(a.CitaFecha < DateTime.Today)
-                    {
-                        a.CitaEstado = "Ci000";
-                        SetResponse responseActualizar = client.Set("Cita/" + a.CitaID + "/CitaEstado/", a.CitaEstado);
-                    }
+                    ActualizarEstadoToCita(a.CitaFecha, a.CitaID);
 
                     if (a.Psicologo.PsicologoID == id)
                     {
@@ -95,6 +97,14 @@ namespace ConoceTe.Controllers
                 }
             }
             return View(ListaCitasPsicologo);
+        }
+
+        private void ActualizarEstadoToCita (DateTime CitaFecha, string CitaID){
+            if (CitaFecha < DateTime.Today)
+            {
+                string CitaEstadoActual = "Ci000";
+                SetResponse responseActualizar = client.Set("Cita/" + CitaID + "/CitaEstado/", CitaEstadoActual);
+            }
         }
 
         [HttpPost]
@@ -197,70 +207,115 @@ namespace ConoceTe.Controllers
         }
 
         [Authorize(Roles = "Paciente")]
-        public ActionResult SolicitarCita(string CitaID, string PacienteID)
+        public ActionResult SolicitarCita(string CitaID)
         {
             client = new FireSharp.FirebaseClient(config);
-            SetResponse response = client.Set("Cita/" + CitaID + "/Paciente/PacienteID/", PacienteID);
+            SetResponse response = client.Set("Cita/" + CitaID + "/Paciente/PacienteID/", SessionHelper.GetNameIdentifier(User));
             SetResponse responseN2 = client.Set("Cita/" + CitaID + "/CitaEstado/", "Ci002");
-            return RedirectToAction("MostrarCitas", "Cita");
+            return RedirectToAction("AceptadoPago", "Cita");
+        }
+
+        [HttpGet]
+        public ViewResult PagarCita(string CitaID)
+        {
+            HttpCookie CookCitaID = new HttpCookie("IDCita", CitaID);
+            client = new FireSharp.FirebaseClient(config);
+            var CitaJSON = client.Get("Cita/" + CookCitaID.Value);
+            Cita cita = CitaJSON.ResultAs<Cita>();
+            HttpCookie CookPsicologoID = new HttpCookie("IDPsicologo", cita.Psicologo.PsicologoID);
+            ViewBag.CitaPrecio = cita.CitaPrecio;
+
+            ControllerContext.HttpContext.Response.SetCookie(CookCitaID);
+            ControllerContext.HttpContext.Response.SetCookie(CookPsicologoID);
+            return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Paciente")]
-        public ActionResult PagarCita(Pago pago, Tarjeta tarjeta)
+        [Obsolete]
+        public async Task<ActionResult> PagarCita(Tarjeta tarjeta)
         {
-            //Crear Tokem Culqi
-            Security security = new Security();
-            security.public_key = "pk_live_e02441a5bb5d2e2e";
-            security.secret_key = "sk_live_6765e36381a417a3";
+            var CookCitaID = ControllerContext.HttpContext.Request.Cookies["IDCita"];
+            string CitaID = CookCitaID.Value;
+            CookCitaID.Expires = DateTime.Now.AddDays(-1D);
 
-            //Crear Cargo a la cuenta Paciente
-            Dictionary<string, object> token = new Dictionary<string, object>
+            var CookPsicologoID = ControllerContext.HttpContext.Request.Cookies["IDPsicologo"];
+            string PsicologoID = CookPsicologoID.Value;
+            CookPsicologoID.Expires = DateTime.Now.AddDays(-1D);
+
+            Pago pago = new Pago
             {
-                {"card_number", tarjeta.CN},
-                {"cvv", tarjeta.CV},
-                {"expiration_month", tarjeta.NM},
-                {"expiration_year", tarjeta.NY},
-                {"email", tarjeta.CE}
+                PagoMonto = tarjeta.MT,
+                PagoFecha = DateTime.Now,
+                Paciente = new Paciente{
+                    PacienteID = SessionHelper.GetNameIdentifier(User)
+                },
+                Cita = new Cita{
+                    CitaID = CitaID
+                },
+                Psicologo = new Psicologo{
+                    PsicologoID = PsicologoID
+                }
             };
-            string token_created = new Token(security).Create(token);
 
-            //Crear Plan de Pago para Psicologo
-            string IDPago = AddPagoToCita(pago);
-            var json_token = JObject.Parse(token_created);
-            Dictionary<string, object> metadata = new Dictionary<string, object>
+            SecurionPayGateway gateway = new SecurionPayGateway("sk_test_MZm7slzOHYNJsvQ0yQjHaYwS");
+
+            int montoPago = (int)(tarjeta.MT * 100);
+            ChargeRequest request = new ChargeRequest()
             {
-                {"order_id", IDPago}
+                Amount = montoPago,
+                Currency = "PEN",
+                Card = new CardRequest()
+                {
+                    CustomerId = SessionHelper.GetEmail(User),
+                    Number = tarjeta.CN,
+                    ExpMonth = tarjeta.NM.ToString(),
+                    ExpYear = tarjeta.NY.ToString(),
+                    Cvc = tarjeta.CV.ToString()
+                }
             };
-            double MP = pago.PagoMonto * 1000;
-            Dictionary<string, object> charge = new Dictionary<string, object>
+
+            try
             {
-                {"amount", MP},
-                {"capture", true},
-                {"currency_code", "PEN"},
-                {"description", "Cita con " + pago.Psicologo.Usuario.UsuarioNombre + " " + pago.Psicologo.Usuario.UsuarioApellido},
-                {"email", pago.Psicologo.Usuario.UsuarioEmail},
-                {"installments", 0},
-                {"metadata", metadata},
-                {"source_id", (string)json_token["id"]}
-            };
-            string charge_created = new Charge(security).Create(charge);
+                Charge charge = await gateway.CreateCharge(request);
 
+                // do something with charge object - see https://securionpay.com/docs/api#charge-object
+                string chargeId = charge.Id;
 
-            return RedirectToAction("MostrarCitas", "Cita");
+                client = new FireSharp.FirebaseClient(config);
+                //Crear codigo y cita
+                PushResponse response = client.Push("Pago/", pago);
+                pago.PagoID = response.Result.name;
+                //Enviar datos de Cita a DB
+                SetResponse setResponse = client.Set("Pago/" + pago.PagoID, pago);
+
+                return RedirectToAction("SolicitarCita", "Cita", new { CitaID });
+            }
+            catch (SecurionPayException e)
+            {
+                // handle error response - see https://securionpay.com/docs/api#error-object
+                ErrorType errorType = e.Error.Type;
+                ErrorCode? errorCode = e.Error.Code;
+                string errorMessage = e.Error.Message;
+            }
+            return RedirectToAction("CancelarPago","Cita");
         }
 
-        public string AddPagoToCita(Pago pago)
+        [HttpGet]
+        [Authorize(Roles = "Paciente")]
+        public ViewResult AceptadoPago()
         {
-            client = new FireSharp.FirebaseClient(config);
-            var DatosDePago = pago;
-            PushResponse response = client.Push("Pago/", DatosDePago);
-            DatosDePago.PagoID = response.Result.name;
-            SetResponse setResponse = client.Set("Cita/" + DatosDePago.PagoID, DatosDePago);
-            return DatosDePago.PagoID;
+            return View();
         }
 
-            [Authorize]
+        [HttpGet]
+        [Authorize(Roles = "Paciente")]
+        public ViewResult CancelarPago()
+        {
+            return View();
+        }
+
+        [Authorize]
         public ActionResult IngresarCita(string UID)
         {
             HttpCookie cookie = new HttpCookie("UsUID", UID);

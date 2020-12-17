@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Confirmado";
+}
+<head>
+    <!--Carga de Estilo Propio-->
+    <link rel="stylesheet" href="~/Complemento/css/pagarCita.css" />
+</head>
+
+
+<div class="container m-5 mx-auto">
+    <div class="row main">
+        <div class="col-lg-3 bg-none">
+        </div>
+        <div class="col-lg-6 col-12 my-5 pt-5 scol centroForm">
+            <div class="row r1 justify-content-center">
+                <img src="~/Complemento/image/iconos/check.png"  class="img_stateF"/>
+                <p class="alert-success h2">El pago fue exitoso</p>
+            </div>
+            <div class="row r6 justify-content-center h4">
+                <a href="~/Cita/MostrarCitas" class="btn btn-outline-success h2">ACEPTAR</a>
+            </div>
+        </div>
+        <div class="col-lg-3 bg-none">
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

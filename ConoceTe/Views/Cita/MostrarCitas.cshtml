@@ -11,7 +11,6 @@
 
 <section class="Lista_Charlas">
     <div class="container">
-        <a href="@Url.Action("IngresarCita", "Cita", new { UID = SessionHelper.GetNameIdentifier(User)})" class="@ViewBag.Button" role="button">INGRESAR</a>
         @if (Model != null)
         {
             foreach (var psicologo in Model)

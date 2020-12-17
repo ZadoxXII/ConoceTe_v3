@@ -46,7 +46,7 @@
                         <li class="list-group-item text-center h6">@TodasCitas.CitaTipo</li>
                     </ul>
                     <div class="card-body h6">
-                        <a href="@Url.Action("SolicitarCita", "Cita", new { CitaID = TodasCitas.CitaID, PacienteID = SessionHelper.GetNameIdentifier(User)})" class="@ViewBag.Button" role="button">@ViewBag.TextoButton</a>
+                        <a href="@Url.Action("PagarCita", "Cita", new { CitaID = TodasCitas.CitaID})" class="@ViewBag.Button" role="button">@ViewBag.TextoButton</a>
                     </div>
                 </div>
             </div>

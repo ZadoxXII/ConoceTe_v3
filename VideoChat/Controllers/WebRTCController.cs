@@ -11,7 +11,7 @@ namespace VideoChat.Controllers
         [HttpGet]
         public ActionResult Index(string UID)
         {
-            if (UID != null)
+            if (UID == null)
             {
                 return View();
             }

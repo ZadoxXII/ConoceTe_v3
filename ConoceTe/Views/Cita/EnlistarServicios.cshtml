@@ -34,13 +34,23 @@
                 if (cita.CitaEstado == "Ci002")
                 {
                     ViewBag.EstiloCartilla = "row animated bounceIn bg-primary";
-                    ViewBag.TextoButton = "CANCELAR CITA";
+                    ViewBag.ButtonClass = "btn btn-outline-info btn-block";
+                    ViewBag.EstadoButton = "SOLICITADA";
+                    ViewBag.TextoButtonCancel = "CANCELAR CITA";
                 }
                 else
                 {
-                    if (cita.CitaEstado == "Ci000") { ViewBag.EstiloCartilla = "row animated bounceIn bg-danger"; }
-                    else { ViewBag.EstiloCartilla = "row animated bounceIn"; }
-                    ViewBag.TextoButton = "Eliminar";
+                    if (cita.CitaEstado == "Ci000") {
+                        ViewBag.EstiloCartilla = "row animated bounceIn bg-danger";
+                        ViewBag.EstadoButton = "VENCIDO";
+                        ViewBag.ButtonClass = "btn btn-outline-warning btn-block";
+                    }
+                    else {
+                        ViewBag.EstiloCartilla = "row animated bounceIn";
+                        ViewBag.ButtonClass = "btn btn-outline-success btn-block";
+                        ViewBag.EstadoButton = "Disponible";
+                    }
+                    ViewBag.TextoButtonCancel = "Eliminar";
                 }
                 <div class="card col-lg-5">
                     <div class="@ViewBag.EstiloCartilla">
@@ -58,8 +68,8 @@
                                 <li class="list-group-item text-center">@Html.DisplayFor(modelItem => cita.CitaTipo)</li>
                             </ul>
                             <div class="card-body h6">
-                                <a href="#" class="btn btn-outline-primary btn-lg btn-block">Modificar</a>
-                                <a href="@Url.Action("EliminarServicio", "Cita", new { CitaID = cita.CitaID, PsicologoID = SessionHelper.GetNameIdentifier(User)})" class="btn btn-outline-danger btn-lg btn-block">@ViewBag.TextoButton</a>
+                                <a href="#" class="@ViewBag.ButtonClass" btn-lg btn-block">@ViewBag.EstadoButton</a>
+                                <a href="@Url.Action("EliminarServicio", "Cita", new { CitaID = cita.CitaID, PsicologoID = SessionHelper.GetNameIdentifier(User)})" class="btn btn-outline-danger btn-lg btn-block">@ViewBag.TextoButtonCancel</a>
                             </div>
                         </div>
                     </div>
